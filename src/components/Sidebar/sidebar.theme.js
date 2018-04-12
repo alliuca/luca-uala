@@ -18,21 +18,6 @@ export const Parallax = styled(Plx)`
       order: 0;
     }
   }
-
-  ${'' /* &.Plx--between-0-and-1 {
-    @media (min-width: 900px) {
-      position: fixed;
-      top: 260px;
-      order: 0;
-    }
-  }
-
-  &.Plx--bellow {
-    @media (min-width: 900px) {
-      position: absolute;
-      top: ${props => props.containerheight ? `${props.containerheight - 60}px` : 'auto'};
-    }
-  } */}
 `;
 
 export const Container = styled('div')`
