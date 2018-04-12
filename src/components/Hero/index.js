@@ -3,7 +3,7 @@ import { Container, Image } from './hero.theme';
 
 const Hero = ({ src }) => (
   <Container>
-    <Image src={src} alt="Hero Image" />
+    <Image src={src} />
   </Container>
 );
 

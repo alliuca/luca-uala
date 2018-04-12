@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from './layout.theme.js';
 
-const Layout = ({ children }) => (
-  <Container>
+const Layout = ({ children, style }) => (
+  <Container style={style}>
     { children }
   </Container>
 );

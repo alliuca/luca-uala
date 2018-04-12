@@ -1,7 +1,9 @@
-import React, { Component, Fragment, createContext } from 'react';
+import React, { Component, createContext } from 'react';
 import { connect } from 'react-redux';
 import { setModalVisibility } from 'actions/app';
 import { fetchArticles } from 'actions/articles';
+import Plx from 'react-plx';
+import Header from 'components/Header';
 import Hero from 'components/Hero';
 import Layout from 'components/Layout';
 import ArticlesList from 'components/ArticlesList';
@@ -18,29 +20,66 @@ class Home extends Component {
 
   render() {
     const { app, articles, setModalVisibility } = this.props;
-    console.log('lol', app.modalOpen);
+    // just grab the first article for this example
+    const firstArticle = articles.length > 0 ? [articles[0]] : [];
+
     return (
       <HomeContext.Provider value={{ setModalVisibility }}>
+        <Header />
         <Hero src={heroSrc} />
-        <Layout>
-          <ArticlesList articles={articles} />
-          <Sidebar>
-            { articles.map((article, index) => (
-              <Article
-                key={article.id}
-                type="sidebar"
-                data={article}
-                articleIndex={`0${index + 1}`}
-              />
-            )) }
-          </Sidebar>
-        </Layout>
+        <Sidebar>
+          { articles.filter(article => article.id !== firstArticle[0].id).map((article, index) => (
+            <Article
+              key={article.id}
+              type="sidebar"
+              data={article}
+              articleIndex={String(index + 1).padStart(2, '0')}
+            />
+          )) }
+        </Sidebar>
+        <Plx
+          parallaxData={[{
+            start: 0,
+            end: 240,
+            properties: [
+              {
+                startValue: 0,
+                endValue: -80,
+                property: 'translateY',
+              }
+            ]
+          }]}
+        >
+          <Layout>
+            <Plx
+              className="background"
+              parallaxData={[{
+                start: 440,
+                end: 480,
+                properties: [
+                  {
+                    startValue: 1152,
+                    endValue: 1440,
+                    property: 'width',
+                  }
+                ]
+              }]}
+            />
+            <ArticlesList articles={firstArticle} />
+          </Layout>
+        </Plx>
         { app.modalOpen
           && (
             <Modal
-              collapsed={app.modalOpen}
+              collapsed={app.modalOpen.DOMRect}
+              nChildren={2}
+              setModalVisibility={setModalVisibility}
             >
-              <h2>Hey I am a modal!</h2>
+              <Article
+                key={app.modalOpen.content.id}
+                type="modal"
+                data={app.modalOpen.content}
+              />
             </Modal>
           )
         }

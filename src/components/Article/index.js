@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -7,6 +6,7 @@ import {
   Title,
   Body,
   Footer,
+  Gallery,
   Actions,
 } from './article.theme';
 import { HomeContext } from 'containers/Home';
@@ -16,7 +16,8 @@ import Button from 'components/Button';
 import avatarSrc from 'images/avatar.png';
 
 const Article = ({ data, type, articleIndex }) => {
-  const { subheading, heading, description } = data;
+  const { subheading, heading, description, images } = data;
+
   return (
     <HomeContext.Consumer>
       {({ setModalVisibility }) => (
@@ -24,7 +25,7 @@ const Article = ({ data, type, articleIndex }) => {
           <Header>
             <SubTitle>{ subheading }</SubTitle>
             <Title type={type}>
-              <Link to="/">{ heading }</Link>
+              <a to="/">{ heading }</a>
             </Title>
           </Header>
           { type === 'full'
@@ -43,8 +44,21 @@ const Article = ({ data, type, articleIndex }) => {
             )
           }
           { type === 'sidebar'
-            && (
-              <Button onClick={setModalVisibility}>Clicca qui</Button>
+            ? <Button onClick={(e) => setModalVisibility(e, data)}>Clicca qui</Button>
+            : (
+              <Fragment>
+                <Gallery type={type}>
+                { images.slice(0, 6).map((image, index) => (
+                  <img
+                    key={image.id}
+                    src={image.url}
+                    alt={image.id}
+                    width="177"
+                    height="177"
+                  />
+                )) }
+                </Gallery>
+              </Fragment>
             )
           }
         </Container>

@@ -56,4 +56,14 @@ injectGlobal`
   h1, h2, h3, h4, h5 {
     font-family: Montserrat, sans-serif;
   }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 900px) {
+      position: relative;
+      display: block;
+    }
+  }
 `;
