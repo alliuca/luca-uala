@@ -6,6 +6,9 @@
 #### Production
 - `docker-compose -f docker-compose.prod.yml up -d --build`
 
+## Demo
+https://uala-challenge.alliuca.now.sh
+
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
